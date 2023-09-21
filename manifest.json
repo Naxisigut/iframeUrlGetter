@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "iframeUrlGetter",
+  "description": "it is a description",
+  "version": "1.0",
+  "action": {
+    "default_icon": {
+      "16": "assets/img/logo.png",
+      "48": "assets/img/logo.png",
+      "128": "assets/img/logo.png"
+    },
+    "default_popup": "html/popup.html",
+    "default_title": "鼠标悬浮展示内容"
+  }
+}
