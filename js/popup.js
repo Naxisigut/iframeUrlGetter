@@ -1,25 +1,28 @@
 const Tabs = chrome.tabs
 
 
+function onClick(){
+  chrome.runtime.sendMessage()
+  // queryTab().then((tab) => {
+  //   const command = {
+  //     cmd: 'start'
+  //   }
+  //   console.log(tab);
+    // Tabs.sendMessage(tab.id, command, function (response) {
+    //   if (typeof (response) == 'undefined') {
+    //     throw new Error('error')
+    //   } else {
+    //     console.log(response);
+    //   }
+    // });
+  // }).catch((err) => {
+  //   console.log(err);
+  // })
+}
+
 const init= () => {
   const btn = document.querySelector('#selector')
-  btn.addEventListener('click', () => {
-    const command = {
-      cmd: 'start'
-    }
-    queryTab().then((tab) => {
-      console.log(tab);
-      Tabs.sendMessage(tab.id, command, function (response) {
-				if (typeof (response) == 'undefined') {
-					throw new Error('error')
-				} else {
-					console.log(response);
-				}
-			});
-    }).catch((err) => {
-      console.log(err);
-    })
-  })
+  btn.addEventListener('click', onClick)
 }
 
 const queryTab = () => {
