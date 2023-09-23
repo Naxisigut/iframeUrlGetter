@@ -5,11 +5,11 @@
   "version": "1.0",
   "background":{
     "presistent": true,
-    "scripts": ["js/background.js"]
+    "scripts": ["js/tool/_bg.js", "js/background.js"]
   },
   "content_scripts":[{
     "matches":["http://*/*", "https://*/*"],
-    "js":["js/content.js"]
+    "js":["js/tool/_content.js", "js/content.js"]
   }],
   "icons": {
     "128": "assets/img/logo.png",

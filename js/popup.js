@@ -1,23 +1,20 @@
-const Tabs = chrome.tabs
-
+import { sendMsg2Tab, sendMsg2Bg, queryTab, getBgMsg} from './tool/_popup.js';
 
 function onClick(){
-  chrome.runtime.sendMessage()
-  // queryTab().then((tab) => {
-  //   const command = {
-  //     cmd: 'start'
-  //   }
-  //   console.log(tab);
-    // Tabs.sendMessage(tab.id, command, function (response) {
-    //   if (typeof (response) == 'undefined') {
-    //     throw new Error('error')
-    //   } else {
-    //     console.log(response);
-    //   }
-    // });
-  // }).catch((err) => {
-  //   console.log(err);
-  // })
+  // sendMsg('msg').then(test)
+
+  // queryTab()
+  //   .then((tab) => {
+  //     return sendMsg2Tab(tab.id, '111111')
+  //   })
+  //   .then((tabRes) => {
+  //     console.log(tabRes);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   })
+  console.log('bgMsg', getBgMsg());
+
 }
 
 const init= () => {
@@ -25,17 +22,7 @@ const init= () => {
   btn.addEventListener('click', onClick)
 }
 
-const queryTab = () => {
-  return new Promise((resolve, reject) => {
-    Tabs.query({ 
-      active: true, 
-      currentWindow: true 
-    }, (tab)=>{
-      queryedTab = tab[0]
-      resolve(tab[0])
-    })
-  })
-}
+
 
 
 window.onload = function () { init(); };
