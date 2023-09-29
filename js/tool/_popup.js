@@ -11,31 +11,17 @@ export function queryTab(){
       currentWindow: true 
     }, (tabs)=>{
       // console.log('shared', tabs);
-      resolve(tabs[0])
-    })
-  })
-}
-
-// 发送消息至background
-export function sendMsg2Bg(msg){
-  return new Promise((resolve, reject) => {
-    Runtime.sendMessage(msg, (res) => {
-      resolve(res)
-    })
-  })
-}
-
-// 发送消息至tab / content
-export function sendMsg2Tab(tabId, msg){
-  return new Promise((resolve, reject) => {
-    Tabs.sendMessage(tabId, msg, (res) => {
-      resolve(res)
+      if(tabs.length){
+        resolve(tabs[0])
+      }else{
+        reject(new Error('current page not found'))
+      }
     })
   })
 }
 
 // 获取background的消息
 export function getBgMsg(){
-  const bgMsg = Extension.getBackgroundPage().msg2Popup
+  const bgMsg = Extension.getBackgroundPage().msgBg2Popup
   return bgMsg
 }

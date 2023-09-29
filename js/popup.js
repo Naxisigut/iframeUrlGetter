@@ -1,20 +1,9 @@
-import { sendMsg2Tab, sendMsg2Bg, queryTab, getBgMsg} from './tool/_popup.js';
+import { sendMsg, sendMsg2Content } from './communication/_popup.js';
 
 function onClick(){
-  // sendMsg('msg').then(test)
-
-  // queryTab()
-  //   .then((tab) => {
-  //     return sendMsg2Tab(tab.id, '111111')
-  //   })
-  //   .then((tabRes) => {
-  //     console.log(tabRes);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
-  console.log('bgMsg', getBgMsg());
-
+  sendMsg('popup test').then((res)=>{
+    console.log(res);
+  })
 }
 
 const init= () => {
