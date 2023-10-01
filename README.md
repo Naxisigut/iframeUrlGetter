@@ -12,3 +12,7 @@ background, contentScripts, popup 三者之间通信机制的建立
 4. popup => background  ✅
 5. contentScripts => popup  ✅
 6. popup => contentScripts  ✅
+
+## communication message structure
+借助runtime.onMessage和sendMessage建立起来的通信机制，需要对其中流通的信息进行结构上的设计
+

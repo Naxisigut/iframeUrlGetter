@@ -48,3 +48,18 @@ chrome.tabs.sendMessage(tabId, msg, (res)=>{
 按照以上内容，有一种情况需要注意，那就是消息发出后，被多个listener接收到。每个listener都会返回一个回复消息，但是注意，这里会产生冲突，所回复的消息只有一个会被接收到并执行回复回调。
 比如说在content内发出消息，同时被background和popup接收到，那么它们两个返回的消息只有一个会触发content内的回复回调。实测结果是popup的被接收到。
 另外，需要对发送消息的数据格式进行规范，清楚指明这条消息所发往的对象，而不是直接发送一个裸数据。
+
+
+## 消息数据结构
+```js
+{
+  // type: send / sendBack
+
+  // from: content/backgroud/popup 发送者
+  // to: content/backgroud/popup 接收者
+
+  // action: 决定接收到消息后如何进行处理
+
+  // args: 处理时用到的参数
+}
+```

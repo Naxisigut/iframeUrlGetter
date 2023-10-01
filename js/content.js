@@ -3,8 +3,7 @@ const text = document.createTextNode('test')
 btn.appendChild(text)
 document.body.prepend(btn)
 btn.addEventListener('click', ()=>{
-  sendMsg('content test').then((res)=>{
-    console.log("get send back");
+  sendMsg.toBackground('content test').then((res)=>{
     console.log(res);
   })
 })
