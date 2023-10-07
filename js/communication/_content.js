@@ -10,7 +10,7 @@ const MsgEnum = {
 }
 
 // 只对顶层页面通信
-if(window == top){
+if(isTop){
   Runtime.onMessage.addListener((message, senderInfo, sendBack) => {
     // message: the message listened
     // senderInfo: the message sender info
@@ -20,10 +20,13 @@ if(window == top){
     console.log("------------ content onMesssage begin ------------");
   
     console.log('message', message);
-    console.log('sendBack', sendBack);
+
+    cmdHandler.exec(message, sendBack)
     sendBack({
       type: MsgEnum.SENDBACK,
-      data_get: message
+      from: MsgEnum.CONTENT,
+      sucess: true,
+      data: null
     })
   
     console.log("------------ content onMesssage over ------------");

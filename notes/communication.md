@@ -52,8 +52,9 @@ chrome.tabs.sendMessage(tabId, msg, (res)=>{
 
 ## 消息数据结构
 ```js
+// send
 {
-  // type: send / sendBack
+  // type: send 
 
   // from: content/backgroud/popup 发送者
   // to: content/backgroud/popup 接收者
@@ -61,5 +62,17 @@ chrome.tabs.sendMessage(tabId, msg, (res)=>{
   // action: 决定接收到消息后如何进行处理
 
   // args: 处理时用到的参数
+}
+
+
+// sendback
+{
+  // type: sendBack
+
+  // from: content/backgroud/popup 发送者
+  // to: 暂时不启用
+
+  // success: true/false 表示消息是否成功接收
+  // data: 返还数据, 无数据时为null
 }
 ```

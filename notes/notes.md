@@ -37,3 +37,17 @@ bg => popup
 popup => bg
 content => popup
 popup => content
+
+#### 关于content在iframe中的执行
+默认在iframe中content脚本不会执行。可以在manifest.json的content_scripts中进行设置，添加属性all_frames为true，可以使content在iframe中执行
+```json
+"content_scripts":[{
+  "matches":["http://*/*", "https://*/*"],
+  "js":["js/tool/_content.js", "js/communication/_content.js", "js/content.js"],
+  "all_frames": true
+}],
+```
+js动态生成的iframe不会执行content的脚本
+
+#### 
+点击按钮 => popup发送开始指令到content => 顶层页面获取所有iframes

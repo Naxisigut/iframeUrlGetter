@@ -1,8 +1,9 @@
-import { sendMsg, sendMsg2Content } from './communication/_popup.js';
+import { sendMsg } from './communication/_popup.js';
 
+// popup => content start: 开始选择元素
 function onClick(){
-  sendMsg('popup test').then((res)=>{
-    console.log(res);
+  sendMsg.toContent('start').then((res)=>{
+    window.close()
   })
 }
 

@@ -2,6 +2,7 @@ import { queryTab } from '../tool/_popup.js';
 import { MsgEnum } from './enum.js';
 
 const Runtime = chrome.runtime
+const Tabs = chrome.tabs
 
 Runtime.onMessage.addListener((message, senderInfo, sendBack)=>{
   // message: the message listened
