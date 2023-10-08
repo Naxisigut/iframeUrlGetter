@@ -49,5 +49,11 @@ popup => content
 ```
 js动态生成的iframe不会执行content的脚本
 
-#### 
+#### 流程：选择元素
 点击按钮 => popup发送开始指令到content => 顶层页面获取所有iframes
+
+#### 关于window.frames
+window.frames是一个类数组对象
+typeof window.frames === 'object'
+直接打印frames, 结果为window；直接打印frames[index], 结果为iframe的window(注意，与document.getElementsByTagName('iframe')不同)
+遍历window.frames不能使用foreach等数组方法，可以采用for循环

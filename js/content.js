@@ -10,6 +10,10 @@ if(isTop){
   })
 }
 
+
+// console.log(111, frames);
+// console.log(222, document.getElementsByTagName('iframe'));
+
 const cmdHandler = {
   exec(message, sendBack){
     const { action, args } = message
@@ -33,11 +37,36 @@ const selectHandler = {
 		e.stopPropagation();
 		e.stopImmediatePropagation();
 	},
-  onClick(){
-    console.log('select');
+  onClick(e){
+    console.log(e.target);
+  },
+  onClickWrapper(e, frame){
+    this.onClick()
+  },
+  onClickMap: new Map(),
+  onClickFactory(frame){
+    
+    const func = function(e){
+      console.log(e);
+    }
+    return func
   },
   start(){
-    const iframes = window
+    const iframes = window.frames
+    // console.log(12122, window);
+    // iframes.foreach(frame => {
+    //   // const document = frame.document
+    //   // if(!document)return
+    //   frame.addEventListener('click', this.onClick)
+    // });
+    for (let index = 0; index < iframes.length; index++) {
+      const frameWindow = iframes[index];
+      const isExist = this.onClickMap.has(frameWindow)
+      if(!isExist){
+        this.onClickMap.set(frame, func)
+      }
+      frameWindow.addEventListener('click', this.onClick)
+    }
     window.addEventListener('click', this.onClick)
   },
   stop(){

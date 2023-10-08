@@ -9,8 +9,7 @@
   },
   "content_scripts":[{
     "matches":["http://*/*", "https://*/*"],
-    "js":["js/tool/_content.js", "js/communication/_content.js", "js/content.js"],
-    "all_frames": true
+    "js":["js/tool/_content.js", "js/communication/_content.js", "js/content.js"]
   }],
   "icons": {
     "128": "assets/img/logo.png",
