@@ -18,6 +18,7 @@ Runtime.onMessage.addListener((message, senderInfo, sendBack) => {
   console.log("------------ background onMesssage begin ------------");
 
   console.log('message', message);
+  bgCmdHandler.exec(message, sendBack)
   sendBack({
     type: MsgEnum.SENDBACK,
     from: MsgEnum.BACKGROUND
@@ -70,3 +71,4 @@ const sendMsg = {
       // })
   }
 }
+

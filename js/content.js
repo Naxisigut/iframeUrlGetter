@@ -10,16 +10,15 @@ if(isTop){
   })
 }
 
-
-// console.log(111, frames);
-// console.log(222, document.getElementsByTagName('iframe'));
-
 const cmdHandler = {
   exec(message, sendBack){
     const { action, args } = message
     switch (action) {
       case 'start':
         selectHandler.start()
+        break;
+      case 'stop':
+        selectHandler.stop()
         break;
     
       default:
@@ -37,45 +36,58 @@ const selectHandler = {
 		e.stopPropagation();
 		e.stopImmediatePropagation();
 	},
-  onClick(e){
-    console.log(e.target);
-  },
-  onClickWrapper(e, frame){
-    this.onClick()
-  },
   onClickMap: new Map(),
   onClickFactory(frame){
-    
     const func = function(e){
-      console.log(e);
+      // 获取iframe路径 => stop
+      // const src = frame.frameElement.src
+      const frameLocation = frame.location
+      let locationItems = [
+        { title: 'href', message: frameLocation.href },
+        { title: 'pathname', message: frameLocation.pathname },
+        { title: 'search', message: frameLocation.search },
+        { title: 'hash', message: frameLocation.hash },
+      ]
+      locationItems = locationItems.filter((i) => i.message)
+      sendMsg.toBackground('location', locationItems)
+      selectHandler.stop()
     }
     return func
   },
   start(){
+    this.listen(window)
     const iframes = window.frames
-    // console.log(12122, window);
-    // iframes.foreach(frame => {
-    //   // const document = frame.document
-    //   // if(!document)return
-    //   frame.addEventListener('click', this.onClick)
-    // });
     for (let index = 0; index < iframes.length; index++) {
       const frameWindow = iframes[index];
-      const isExist = this.onClickMap.has(frameWindow)
-      if(!isExist){
-        this.onClickMap.set(frame, func)
-      }
-      frameWindow.addEventListener('click', this.onClick)
+      this.listen(frameWindow)
     }
-    window.addEventListener('click', this.onClick)
   },
   stop(){
-    window.removeEventListener('click', this.onClick)
+    this.onClickMap.forEach((value, key, map) => {
+      try {
+        key.removeEventListener('click', value)
+      } catch (error) {
+        console.log(error);        
+      }
+    })
   },
+  listen(currWindow){
+    // debugger
+    const isExist = this.onClickMap.has(currWindow)
+    let onClickFunc = null
+    if(isExist){
+      onClickFunc = this.onClickMap.get(currWindow)
+    }else{
+      onClickFunc = this.onClickFactory(currWindow)
+      this.onClickMap.set(currWindow, onClickFunc)
+    }
+
+    try {
+      currWindow.addEventListener('click', onClickFunc)
+      console.log('listen');
+    } catch (error) {
+      console.log('listen error');
+      this.onClickMap.delete(currWindow, onClickFunc)
+    }
+  }
 }
-
-
-// sendMsg2Bg('from content')
-//   .then((res) => {
-//     console.log(res); 
-//   })

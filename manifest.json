@@ -15,7 +15,8 @@
     "128": "assets/img/logo.png",
     "16": "assets/img/logo.png",
     "48": "assets/img/logo.png"
- },
+  },
+  "permissions": [ "notifications" ],
   "browser_action": {
     "default_icon": "assets/img/logo.png",
     "default_popup": "html/popup.html",

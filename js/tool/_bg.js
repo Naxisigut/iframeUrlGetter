@@ -1,5 +1,6 @@
 const Runtime = chrome.runtime
 const Tabs = chrome.tabs
+const Notifications = chrome.notifications
 var msgBg2Popup = ['test']
 
 
@@ -18,4 +19,17 @@ function queryTab(){
       }
     })
   })
+}
+
+
+
+// 复制指定文本到剪切板
+function copyText(str){
+  const ipt = document.createElement('input')
+  ipt.value = str
+  document.body.appendChild(ipt)
+  ipt.select()
+  const copyRes = document.execCommand('copy')
+  document.body.removeChild(ipt)
+  return copyRes
 }
