@@ -21,15 +21,17 @@ if(isTop){
   
     console.log('message', message);
 
-    cmdHandler.exec(message, sendBack)
-    sendBack({
-      type: MsgEnum.SENDBACK,
-      from: MsgEnum.CONTENT,
-      sucess: true,
-      data: null
+    cmdHandler.exec(message).then((res) => {
+      sendBack({
+        type: MsgEnum.SENDBACK,
+        from: MsgEnum.CONTENT,
+        sucess: true,
+        data: res
+      })
     })
-  
+    
     console.log("------------ content onMesssage over ------------");
+    return true
   })
 }
 

@@ -11,22 +11,24 @@ if(isTop){
 }
 
 const cmdHandler = {
-  exec(message, sendBack){
-    const { action, args } = message
-    switch (action) {
-      case 'start':
-        selectHandler.start()
-        break;
-      case 'stop':
-        selectHandler.stop()
-        break;
-    
-      default:
-        break;
-    }
-  },
-  sendBack(sendBack){
-
+  exec(message){
+    return new Promise((resolve, reject) => {
+      const { action, args } = message
+      switch (action) {
+        case 'start':
+          selectHandler.start()
+          resolve()
+          break;
+        case 'stop':
+          selectHandler.stop()
+          resolve()
+          break;
+        case 'isSelecting':
+          resolve(selectHandler.isSelecting)
+        default:
+          break;
+      }
+    })
   }
 }
 
@@ -54,7 +56,9 @@ const selectHandler = {
     }
     return func
   },
+  isSelecting: false,
   start(){
+    this.isSelecting = true
     this.listen(window)
     const iframes = window.frames
     for (let index = 0; index < iframes.length; index++) {
@@ -63,6 +67,7 @@ const selectHandler = {
     }
   },
   stop(){
+    this.isSelecting = false
     this.onClickMap.forEach((value, key, map) => {
       try {
         key.removeEventListener('click', value)
