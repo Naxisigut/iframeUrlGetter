@@ -91,3 +91,8 @@ chrome.notifications.create(id, {
 #### notification id
 chrome.notifacations.clear/update都需要使用到id
 多次create时使用相同的id不会报错
+
+#### notification 失效
+在某些时候，任何notification都失效，也没有任何报错信息，这可能是浏览器设置导致的。
+在 `chrome://flags/` 搜索 `notifications`, 找到 `Enable system notifications`选项，改为 `disabled`，实测有效果。
+参考资料：https://juejin.cn/post/6992889349213782030
